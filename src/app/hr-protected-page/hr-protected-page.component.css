@@ -1,0 +1,9 @@
+input[readonly] {
+    background-color: #f2f2f2;
+    cursor: not-allowed;
+}
+
+select[disabled] {
+    background-color: #f2f2f2;
+    cursor: not-allowed;
+}

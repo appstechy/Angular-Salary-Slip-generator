@@ -1,0 +1,85 @@
+<!-- app.component.html -->
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Salary Slip Generator App</a>
+      <ul class="navbar-nav ms-auto">
+        <!-- Show 'Login' and 'Register' links if the user is not logged in -->
+        <li *ngIf="!isUserLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">HR Login</a>
+        </li>
+        <li *ngIf="!isUserLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/emp_login" routerLinkActive="active">Employee Login</a>
+        </li>
+        <!-- <li *ngIf="!isUserLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        </li> -->
+
+        <!-- Show 'Logout' link if the user is logged in -->
+        <li *ngIf="isUserLoggedIn()" class="nav-item">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- Protected Content -->
+
+  <div *ngIf="isUserLoggedIn() && userRole">
+    <ng-container [ngSwitch]="userRole">
+      <app-hr-protected-page *ngSwitchCase="'admin'"></app-hr-protected-page>
+      <app-protected-page *ngSwitchCase="'employee'"></app-protected-page>
+    </ng-container>
+  </div>
+  
+
+
+
+  <!-- <div *ngIf="isUserLoggedIn() && userRole">
+
+    <ng-container *ngIf="userRole === 'admin'">
+      <app-hr-protected-page></app-hr-protected-page>
+    </ng-container>
+
+
+    <ng-container *ngIf="userRole === 'employee'">
+      <app-protected-page></app-protected-page>
+    </ng-container> -->
+  
+    <!-- <ng-template #regularUserContent>
+      <app-protected-page></app-protected-page>
+    </ng-template> -->
+<!--   
+  </div> -->
+  
+   <!-- <div #dynamicComponentContainer></div> -->
+
+  <!-- Dummy Code -->
+  <!-- <div *ngIf="isUserLoggedIn()">
+
+    
+      <app-hr-protected-page></app-hr-protected-page>
+
+      <app-protected-page></app-protected-page>
+
+
+  </div> -->
+
+
+
+  <!-- Display login and registration components when the user is not logged in -->
+  <div class="container" *ngIf="!isUserLoggedIn()">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="footer mt-5 bg-dark text-white py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <p> Salary Slip Generator App</p>
+        </div>
+        
+      </div>
+    </div>
+  </footer>

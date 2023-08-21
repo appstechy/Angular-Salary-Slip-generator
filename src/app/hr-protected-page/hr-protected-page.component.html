@@ -1,0 +1,799 @@
+<div class="container shadow mt-5 p-4 bg-white">
+
+    <div>
+        <h1>Welcome <span style="color: brown;">{{ fullName2 }}</span> to Admin Page</h1>
+        <div class="p-3 shadow">
+        
+        <div class="d-flex justify-content-center">
+            <img draggable="false" ondragstart="return false" src="https://cdn.dribbble.com/users/878959/screenshots/4460762/hr.png" class="h-75 w-75">
+        </div>
+        
+
+
+      </div>
+
+    </div>
+
+
+    <div class="mt-5 p-3 shadow">
+      <h4>Employees Detail-</h4>
+      <div *ngIf="!result; else rest">
+        <h5 style="color: red;">No Employees Detail Found!!!</h5>
+      </div>
+
+      <ng-template #rest>
+        <div class="table-responsive p-3">
+            <table class="table table-striped table-bordered shadow">
+              <thead>
+                <tr>
+                  <th scope="col">S.No.</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Employee Id</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Date of Birth</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Salary</th>
+                  <th scope="col">Designation</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Bank Account Number</th>
+                  <th scope="col">Date of Joining</th>
+                  <th scope="col">Date of Leaving</th>
+                  <th scope="col">Update</th>
+                  <th scope="col">Generate Payslip</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+    
+                    <tr *ngFor="let records of result; let i = index">
+                        
+                        <td>{{i+1}}</td>
+                        <td>{{records.username}}</td>
+                        <td>{{records.emp_id}}</td>
+                        <td>{{records.full_name}}</td>
+                        <td>{{records.gender}}</td>
+                        <td>{{records.date_of_birth}}</td>
+                        <td>{{records.email}}</td>
+                        <td>{{records.phone_number}}</td>
+                        <td>{{records.salary}}</td>
+                        <td>{{records.designation}}</td>
+                        <td>{{records.department}}</td>
+                        <td>{{records.bank_account_number}}</td>
+                        <td>{{records.date_of_joining}}</td>
+                        <td>{{records.date_of_leaving}}</td>
+                        <td><button class="btn btn-primary" (click)="toggleOptedForUpdateDetails(records.username)">Update</button></td>
+                        <td><button class="btn btn-secondary" (click)="toggleOptedForGeneratePayslip(records.username)">Generate Payslip</button></td>
+                        <td><button class="btn btn-danger" (click)="toggleOptedForDeleteEmployee(records.username)">Delete</button></td>
+                      </tr>
+                      
+    
+                
+              </tbody>
+            </table>
+          </div>
+      </ng-template>
+      
+
+    </div>
+
+    <!-- Register New Employee -->
+    <div class="mt-5 p-3 shadow">
+        <h4>Want to add new Employee?</h4>
+        <button class="btn btn-primary" (click)="toggleOptedForAddNewEmployee()">{{buttonValue}}</button>
+        <div *ngIf="isOptedForAddNewEmployee">
+            <h5 class="mt-4" style="text-align: center;">Employee details-</h5>
+            <form class="needs-validation mt-4" (submit)="register()" novalidate>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="form-label" for="myusername">Username:</label>
+                            <input type="text" id="myusername" class="form-control" name="myusername" [(ngModel)]="myusername" required>
+                            <div class="invalid-feedback">Username is required.</div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="form-label" for="mypassword">Password:</label>
+                            <div class="input-group">
+                              <input type="{{ isPasswordVisibleforRegisterPassword ? 'text' : 'password' }}" name="mypassword" class="form-control" [(ngModel)]="mypassword" required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibilityForRegisterPassword()">
+                                  <img src="{{ isPasswordVisibleforRegisterPassword ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png': 'https://cdn-icons-png.flaticon.com/512/2767/2767146.png'}}" height="10px" weight="10px">
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                
+                          <div class="form-group">
+                            <label class="form-label" for="myconfirmPassword">Confirm Password:</label>
+                            <div class="input-group">
+                              <input type="{{ isPasswordVisibleforRegisterConfirmPassword ? 'text' : 'password' }}" name="myconfirmPassword" class="form-control" [(ngModel)]="myconfirmPassword" required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibilityForRegisterConfirmPassword()">
+                                  <img src="{{ isPasswordVisibleforRegisterConfirmPassword ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png': 'https://cdn-icons-png.flaticon.com/512/2767/2767146.png'}}" height="10px" weight="10px">
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                
+                        
+                          <div class="form-group">
+                            <label class="form-label" for="myempId">Employee Id:</label>
+                            <input type="text" id="myempId" class="form-control" name="myempId" [(ngModel)]="myempId" required>
+                        </div>
+                        
+                          <div class="form-group">
+                            <label class="form-label" for="myfullName">Full Name:</label>
+                            <input type="text" id="myfullName" class="form-control" name="myfullName" [(ngModel)]="myfullName" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="form-label" for="mydateOfBirth">Date Of Birth:</label>
+                            <input type="date" id="mydateOfBirth" class="form-control" name="mydateOfBirth" [(ngModel)]="mydateOfBirth" required>
+                        </div>
+                
+                
+                        <div class="form-group">
+                            <label class="form-label" for="myemail">Email:</label>
+                            <input type="email" id="myemail" class="form-control" name="myemail" [(ngModel)]="myemail" required>
+                        </div>
+                
+                
+                        <div class="form-group">
+                            <label class="form-label" for="myphoneNumber">Phone Number:</label>
+                            <input type="number" id="myphoneNumber" class="form-control" name="myphoneNumber" [(ngModel)]="myphoneNumber" required>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="form-label" for="mygender">Gender:</label>
+                            <select name="mygender" class="form-control" [(ngModel)]="mygender" required>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                        </div>
+                
+                
+                        <div class="form-group">
+                          <label class="form-label" for="mysalary">Salary:</label>
+                          <input type="number" id="mysalary" class="form-control" name="mysalary" [(ngModel)]="mysalary" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="mydesignation">Designation:</label>
+                          <input type="text" id="mydesignation" class="form-control" name="mydesignation" [(ngModel)]="mydesignation" required>
+                      </div>
+                
+                      <div class="form-group">
+                        <label class="form-label" for="mydepartment">Department:</label>
+                        <input type="text" id="mydepartment" class="form-control" name="mydepartment" [(ngModel)]="mydepartment" required>
+                    </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="mybankAccountNumber">Bank Account Number:</label>
+                          <input type="number" id="mybankAccountNumber" class="form-control" name="mybankAccountNumber" [(ngModel)]="mybankAccountNumber" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="mydateOfJoining">Date Of Joining:</label>
+                          <input type="date" id="mydateOfJoining" class="form-control" name="mydateOfJoining" [(ngModel)]="mydateOfJoining" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="mydateOfLeaving">Date Of Leaving:</label>
+                          <input type="date" id="mydateOfLeaving" class="form-control" name="mydateOfLeaving" [(ngModel)]="mydateOfLeaving" required>
+                        </div>
+
+                    </div>
+                </div>
+                
+         
+                <button type="submit" class="btn btn-primary btn-block mt-3 shadow">Register</button>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Update Employee Detail -->
+
+    <div class="mt-5 p-3 shadow">
+        <!-- <h4>Want to update your info?</h4>
+        <button class="btn btn-primary" (click)="toggleOptedForUpdateDetails()">{{buttonValue}}</button> -->
+        <div *ngIf="isOptedForUpdateDetails">
+            <h4 class="mt-4" style="text-align: center;">Update</h4>
+            <form class="needs-validation mt-4" (submit)="update()" novalidate>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="username">Username:</label>
+                            <input type="text" id="username" class="form-control" name="username" [(ngModel)]="username" required>
+                            <div class="invalid-feedback">Username is required.</div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password:</label>
+                            <div class="input-group">
+                              <input type="{{ isPasswordVisibleforUpdatePassword ? 'text' : 'password' }}" name="password" class="form-control" [(ngModel)]="password" required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibilityForUpdatePassword()">
+                                  <img src="{{ isPasswordVisibleforUpdatePassword ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png': 'https://cdn-icons-png.flaticon.com/512/2767/2767146.png'}}" height="10px" weight="10px">
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                
+                          <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Confirm Password:</label>
+                            <div class="input-group">
+                              <input type="{{ isPasswordVisibleforUpdateConfirmPassword ? 'text' : 'password' }}" name="confirmPassword" class="form-control" [(ngModel)]="confirmPassword" required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibilityForUpdateConfirmPassword()">
+                                  <img src="{{ isPasswordVisibleforUpdateConfirmPassword ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png': 'https://cdn-icons-png.flaticon.com/512/2767/2767146.png'}}" height="10px" weight="10px">
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                
+                        
+                          <div class="form-group">
+                            <label class="form-label" for="empId">Employee Id:</label>
+                            <input type="text" id="empId" class="form-control" name="empId" [(ngModel)]="empId" required>
+                        </div>
+                        
+                          <div class="form-group">
+                            <label class="form-label" for="fullName">Full Name:</label>
+                            <input type="text" id="fullName" class="form-control" name="fullName" [(ngModel)]="fullName" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="form-label" for="dateOfBirth">Date Of Birth:</label>
+                            <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" [(ngModel)]="dateOfBirth" required>
+                        </div>
+                
+                
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email:</label>
+                            <input type="email" id="email" class="form-control" name="email" [(ngModel)]="email" required>
+                        </div>
+                
+                
+                        <div class="form-group">
+                            <label class="form-label" for="phoneNumber">Phone Number:</label>
+                            <input type="number" id="phoneNumber" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber" required>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="gender">Gender:</label>
+                            <select name="gender" class="form-control" [(ngModel)]="gender" required>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                        </div>
+                
+                
+                        <div class="form-group">
+                          <label class="form-label" for="salary">Salary:</label>
+                          <input type="number" id="salary" class="form-control" name="salary" [(ngModel)]="salary" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="designation">Designation:</label>
+                          <input type="text" id="designation" class="form-control" name="designation" [(ngModel)]="designation" required>
+                      </div>
+                
+                      <div class="form-group">
+                        <label class="form-label" for="department">Department:</label>
+                        <input type="text" id="department" class="form-control" name="department" [(ngModel)]="department" required>
+                    </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="bankAccountNumber">Bank Account Number:</label>
+                          <input type="number" id="bankAccountNumber" class="form-control" name="bankAccountNumber" [(ngModel)]="bankAccountNumber" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="dateOfJoining">Date Of Joining:</label>
+                          <input type="date" id="dateOfJoining" class="form-control" name="dateOfJoining" [(ngModel)]="dateOfJoining" required>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="form-label" for="dateOfLeaving">Date Of Leaving:</label>
+                          <input type="date" id="dateOfLeaving" class="form-control" name="dateOfLeaving" [(ngModel)]="dateOfLeaving" required>
+                        </div>
+
+                    </div>
+                </div>
+                
+        
+        
+                
+                  
+                
+                <button type="submit" class="btn btn-primary btn-block mt-3 shadow">Update</button>
+            </form>
+
+        </div>
+
+
+        <!-- Payslip generate logic-->
+
+        <div *ngIf="isOptedForGeneratePayslip">
+            <h4 style="text-align: center;">Generate Payslip</h4>
+            <h5 class="mt-4">Employee details <span style="color: red;">*</span></h5>
+            <form class="needs-validation mt-2" (submit)="calculate()" novalidate>
+        
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="form-label" for="empId">Employee Id:</label>
+                            <input type="text" id="empId" class="form-control" name="empId" [(ngModel)]="empId" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="fullName2">Full Name:</label>
+                            <input type="text" id="fullName2" class="form-control" name="fullName2" [(ngModel)]="fullName" required readonly>
+                        </div>
+                
+                        <!-- <div class="form-group mt-2">
+                            <label class="form-label" for="dateOfBirth">Date Of Birth:</label>
+                            <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" [(ngModel)]="dateOfBirth" required readonly>
+                        </div>
+                
+                
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="email">Email:</label>
+                            <input type="email" id="email" class="form-control" name="email" [(ngModel)]="email" required readonly>
+                        </div>
+                
+                
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="phoneNumber">Phone Number:</label>
+                            <input type="number" id="phoneNumber" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber" required readonly>
+                        </div> -->
+
+                        <!-- <div class="form-group mt-2">
+                            <label class="form-label" for="empId">Employee Id:</label>
+                            <input type="text" id="empId" class="form-control" name="empId" [(ngModel)]="empId" required readonly>
+                        </div> -->
+<!-- 
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="payPeriod">Pay Date:</label>
+                            <input type="date" id="payPeriod" class="form-control" name="payPeriod" [(ngModel)]="payPeriod" required readonly>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label class="form-label" for="designation">Designation:</label>
+                            <input type="text" id="designation" class="form-control" name="designation" [(ngModel)]="designation" required readonly>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="salary">Salary:</label>
+                            <input type="number" id="salary" class="form-control" name="salary" [(ngModel)]="salary" required readonly>
+                          </div>
+
+                        
+
+                        
+                
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="form-label" for="department">Department:</label>
+                            <input type="text" id="department" class="form-control" name="department" [(ngModel)]="department" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bankAccountNumber">Bank Account Number:</label>
+                            <input type="number" id="bankAccountNumber" class="form-control" name="bankAccountNumber" [(ngModel)]="bankAccountNumber" required readonly>
+                          </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="gender">Gender:</label>
+                            <select name="gender" class="form-control" [(ngModel)]="gender" required disabled>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                        </div>
+        
+        
+                        
+                  
+                          <!-- <div class="form-group mt-2">
+                            <label class="form-label" for="dateOfJoining">Date Of Joining:</label>
+                            <input type="date" id="dateOfJoining" class="form-control" name="dateOfJoining" [(ngModel)]="dateOfJoining" required readonly>
+                          </div>
+                  
+                          <div class="form-group mt-2">
+                            <label class="form-label" for="dateOfLeaving">Date Of Leaving:</label>
+                            <input type="date" id="dateOfLeaving" class="form-control" name="dateOfLeaving" [(ngModel)]="dateOfLeaving" required readonly>
+                          </div> -->
+
+                          <div class="form-group mt-2">
+                            <label class="form-label" for="paidDays">Paid Days:</label>
+                            <input type="number" id="paidDays" class="form-control" name="paidDays" [(ngModel)]="paidDays" required readonly>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="lossOfPaidDays">Loss of Pay Days:</label>
+                            <input type="number" id="lossOfPaidDays" class="form-control" name="lossOfPaidDays" [(ngModel)]="lossOfPaidDays" required>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <h5 class="mt-4">Income details</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Earnings</b>
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="basic">Basic:</label>
+                            <input type="number" id="basic" class="form-control" name="basic" [(ngModel)]="basic"  required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="da">Dearness Allowance:</label>
+                            <input type="number" id="da" class="form-control" name="da" [(ngModel)]="da" required>
+                        </div>
+ 
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="hra">House Rent Allowance:</label>
+                            <input type="number" id="hra" class="form-control" name="hra" [(ngModel)]="hra" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="ca">Conveyance Allowance:</label>
+                            <input type="number" id="ca" class="form-control" name="ca" [(ngModel)]="ca" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="medical">Medical Allowance:</label>
+                            <input type="number" id="medical" class="form-control" name="medical" [(ngModel)]="medical" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="special">Special Allowance:</label>
+                            <input type="number" id="special" class="form-control" name="special" [(ngModel)]="special" required>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <b>Deductions</b>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="tax">Professional Tax:</label>
+                            <input type="number" id="tax" class="form-control" name="tax" [(ngModel)]="tax" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="tds">Tax Deducted a Source:</label>
+                            <input type="number" id="tds" class="form-control" name="tds" [(ngModel)]="tds" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="form-label" for="epf">Employee Provident Fund:</label>
+                            <input type="number" id="epf" class="form-control" name="epf" [(ngModel)]="epf" required>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-3 shadow">Calculate</button>
+
+                
+            </form>
+
+
+            <div class="row mt-4" *ngIf="toggleForSalaryShow">
+                <div class="col-md-6">
+                    <p><b>Gross Earnings -</b> {{ basic! + hra! + da! + medical! + special! + ca!}}</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p><b>Total Deductions -</b> {{ tax! + tds! + epf! }}</p>
+                </div>
+
+                <h5 style="text-align: center;">Total Net Payable - {{ ((basic! + hra! + da! + medical! + special! + ca!) - (tax! + tds! + epf!)) - (lossOfPaidDays! * salary!/paidDays!) | number:'1.2-2'}}</h5>
+
+                <button type="submit" class="btn btn-primary mt-3 shadow" (click)="toggleForHiddenTemplateShow()" width="50px" >{{hiddenButtonValue}} Salary slip preview</button>
+
+                <button type="submit" class="btn btn-primary btn-block mt-3 shadow" (click)="openPDF()">Generate Salaryslip</button>
+
+
+            </div>
+
+        </div>
+
+
+
+
+        
+    </div>
+
+</div>
+
+        <!-- Hidden template for Salary Slip -->
+
+        <div class="container mt-5 p-4 bg-white" id="htmlData" *ngIf="hiddenTemplate">
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <h2 class="p-3" style="text-align: center;">Company ABC</h2>
+                </div>
+                
+            </div>
+            
+            <div class="row mt-5">
+                <h4 style="text-align: center;">Salary Slip for {{ currentMonth + ' ' + currentYear }}</h4>
+            </div>
+        
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    Date - {{ currentDateAndTime | date:'yyyy-MM-dd HH:mm:ss' }}
+                </div>
+        
+            </div>
+        
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    Employee Id - {{ empId }}
+                </div>
+
+                <div class="col-md-3">
+                    Employee Name - {{ fullName }}
+                </div>
+
+        
+                 
+        
+            </div>
+        
+            <div class="row">
+
+                <div class="col-md-3">
+                    Department - {{department}}
+                </div> 
+
+                <div class="col-md-3">
+                    Designation - {{designation}}
+                </div>
+        
+                
+                
+            </div>
+        
+            <div class="row">
+
+                <div class="col-md-3">
+                    Bank Name - Abc Bank
+                </div>
+
+                <div class="col-md-3">
+                    Location - xyz
+                </div>
+        
+                
+                
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    Bank Account No. - {{ bankAccountNumber }}
+                </div>
+        
+                
+            </div>
+        
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;" colspan="3">Earnings</th>
+                            </tr>
+        
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Salary Head</th>
+                                <th>Amount (Rs.)</th>
+                                
+                            </tr>
+                            
+                        </thead>
+        
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Basic</td>
+                                <td>{{ basic }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>2</td>
+                                <td>Dearness Allowance</td>
+                                <td>{{ da }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>3</td>
+                                <td>House Rent Allowance</td>
+                                <td>{{ hra }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>4</td>
+                                <td>Conveyance Allowance</td>
+                                <td>{{ ca }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>5</td>
+                                <td>Medical Allowance</td>
+                                <td>{{ medical }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>6</td>
+                                <td>Special Allowance</td>
+                                <td>{{ special }}</td>
+                                
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;" colspan="3">Deductions</th>
+                            </tr>
+        
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Salary Head</th>
+                                <th>Amount (Rs.)</th>
+                                
+                            </tr>
+                            
+                        </thead>
+        
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Professional Tax</td>
+                                <td>{{ tax }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>2</td>
+                                <td>Tax Deducted at Source</td>
+                                <td>{{ tds }}</td>
+                                
+                            </tr>
+        
+                            <tr>
+                                <td>3</td>
+                                <td>Employee Provided Fund</td>
+                                <td>{{ epf }}</td>
+                                
+                            </tr>
+        
+                        </tbody>
+        
+                        
+                    </table>
+                </div>
+        
+            </div>
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    Salary (GROSS)/PM
+                </div>
+                <div class="col-md-2">
+                    {{ basic! + hra! + da! + medical! + special! + ca!}}
+                </div>
+                
+            </div>
+        
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    Salary (CTC)/PM
+                </div>
+                <div class="col-md-2">
+                    {{ basic! + hra! + da! + medical! + special! + ca!}}
+                </div>
+        
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    Total Deduction
+                </div>
+                <div class="col-md-2">
+                    {{ tax! + tds! + epf! }}
+                </div>
+                
+            </div>
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <b>Total Pay Days</b>
+                </div>
+                <div class="col-md-2">
+                    {{ paidDays }}
+                </div>
+                
+            </div>
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <b>Loss Pay Days</b>
+                </div>
+                <div class="col-md-2">
+                    {{ lossOfPaidDays}}
+                </div>
+                
+            </div>
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <b>Salaried Days</b>
+                </div>
+                <div class="col-md-2">
+                    {{ paidDays! - lossOfPaidDays!}}
+                </div>
+                
+            </div>
+        
+        
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <h5>Net Salary</h5>
+                </div>
+                <div class="col-md-2">
+                    <h5>{{ ((basic! + hra! + da! + medical! + special! + ca!) - (tax! + tds! + epf!)) - (lossOfPaidDays! * salary!/paidDays!) | number:'1.2-2'}}</h5>
+                </div>
+                
+            </div>
+        
+            
+        
+            
+        
+        
+        
+        </div>
+
