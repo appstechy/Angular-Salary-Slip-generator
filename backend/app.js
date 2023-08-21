@@ -59,7 +59,7 @@ app.post('/api/register', (req,res) => {
                 }
     
                 console.log(results);
-                // const token = jwt.sign({ userId: results.insertId }, 'rinku123', { expiresIn: '1h' });
+                // const token = jwt.sign({ userId: results.insertId }, 'xyz123', { expiresIn: '1h' });
                 return res.json({ success:true});
             })
         })
@@ -82,7 +82,7 @@ app.post('/api/updateUser', (req,res) => {
         }
 
         console.log(results);
-        // const token = jwt.sign({ userId: results.insertId }, 'rinku123', { expiresIn: '1h' });
+        // const token = jwt.sign({ userId: results.insertId }, 'xyz123', { expiresIn: '1h' });
         return res.json({ success:true});
     })
 })
@@ -114,7 +114,7 @@ app.post('/api/login', (req, res) => {
             }
           
             const { id, username, fullName } = results[0];
-            const token = jwt.sign({ userId: results[0].id }, 'rinku123', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: results[0].id }, 'xyz123', { expiresIn: '1h' });
             return res.json({ success: true, token });
           });
         
@@ -151,7 +151,7 @@ app.post('/api/admin_login', (req, res) => {
             }
           
             const { id, username, fullName } = results[0];
-            const token = jwt.sign({ userId: results[0].id }, 'rinku123', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: results[0].id }, 'xyz123', { expiresIn: '1h' });
             return res.json({ success: true, token });
           });
         
@@ -169,7 +169,7 @@ app.get('/api/getFullName', (req, res) => {
         return res.status(401).json({ success:false, message: 'Unauthorized. Missing token.' });   
     }
 
-    jwt.verify(token, 'rinku123', (err, decoded) => {
+    jwt.verify(token, 'xyz123', (err, decoded) => {
         if(err){
             console.error('Error while verifying the token:', err);
             return res.status(401).json({ success: false, message:'Unauthorized. Invalid token.' });
@@ -208,7 +208,7 @@ app.get('/api/getFullNameOfAdmin', (req, res) => {
         return res.status(401).json({ success:false, message: 'Unauthorized. Missing token.' });   
     }
 
-    jwt.verify(token, 'rinku123', (err, decoded) => {
+    jwt.verify(token, 'xyz123', (err, decoded) => {
         if(err){
             console.error('Error while verifying the token:', err);
             return res.status(401).json({ success: false, message:'Unauthorized. Invalid token.' });
@@ -247,7 +247,7 @@ app.get('/api/fetchAllDetails', (req, res) => {
         return res.status(401).json({ success:false, message: 'Unauthorized. Missing token.' });   
     }
 
-    jwt.verify(token, 'rinku123', (err, decoded) => {
+    jwt.verify(token, 'xyz123', (err, decoded) => {
         if(err){
             console.error('Error while verifying the token:', err);
             return res.status(401).json({ success: false, message:'Unauthorized. Invalid token.' });
