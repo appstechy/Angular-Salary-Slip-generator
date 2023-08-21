@@ -3,9 +3,9 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
 
 ## Project Screenshots
-![Hr Login Page]('https://github.com/RinkuAppstechy/images/blob/main/salarySlipHrLogin.png')
-![Employee Login Page]('https://github.com/RinkuAppstechy/images/blob/main/salarySlipEmployeeLogin.png')
-![Admin Page]('https://github.com/RinkuAppstechy/images/blob/main/AdminPage.png')
+![Hr Login Page](https://github.com/RinkuAppstechy/images/blob/main/salarySlipHrLogin.png)
+![Employee Login Page](https://github.com/RinkuAppstechy/images/blob/main/salarySlipEmployeeLogin.png)
+![Admin Page](https://github.com/RinkuAppstechy/images/blob/main/AdminPage.png)
 
 ## Development server
 
