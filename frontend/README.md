@@ -8,13 +8,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ![Admin Page](https://github.com/RinkuAppstechy/images/blob/main/AdminPage.png)
 
 ## Project Requirements
-Node version - 18.12.0
-The database used - MySQL
-Administration tool used for MySQL - PHPMyAdmin
-API testing tool - Postman
-Front-end - Angular
-Backend - Node
-Package manager command used - npm
+Node version - 18.12.0  
+The database used - MySQL  
+Administration tool used for MySQL - PHPMyAdmin  
+API testing tool - Postman  
+Front-end - Angular  
+Backend - Node  
+Package manager command used - npm  
 
 ## Development server
 
